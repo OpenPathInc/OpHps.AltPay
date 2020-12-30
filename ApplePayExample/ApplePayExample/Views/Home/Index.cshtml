@@ -1,13 +1,18 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Apple Pay Example";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Apple Pay Button Example</h1>
+
+    <h1 class="display-4">Apple Pay Example</h1>
     <p>
+        <!-- this will be the html element we will attach the apple pay button too -->
         <span class="apple-pay-button apple-pay-button-white hidden"></span>
     </p>
-    <div class="apple-pay-logging"></div>
+
+    <!-- this will be the html element we will attach the debug output too -->
+    <div id="log-output"></div>
+
 </div>
 
 @section scripts {
@@ -24,20 +29,24 @@
 
             // example of passing data, in this example we are calling it a cart id, you can use
             // this id when making calls to your server side to update shipping, tax or any other
-            // information when a user changes their payment types or addresses.
+            // information when a user changes their payment types or addresses
             var cartId = 1001;
 
-            // enable debug logging
+            // enable debug logging which will output details to the browsers console log and or
+            // an html element
             OpHps.EnableLogging(true);
 
-            // attach the logging to an on page element
-            OpHps.ApplePay.AttachLog('.apple-pay-logging');
+            // we will attach the debug logging enabled above to an on page element to display the
+            // output
+            OpHps.ApplePay.AttachLog('#log-output');
 
-            // add api key
+            // this is your unique key that associates your Apple Pay account with openpath and
+            // heartland payment systems, which can be found under sites in the OpenPath back
+            // office.
+            // https://client.openpath.io.
+            // for testing purposes, we have provided 10 varified ngrok urls and matching api login
+            // ids, which can be found in the readme.md file.
             OpHps.ApiLoginId('TZSdpU2VhaWcTZZ7');
-
-            // set the return url when a payment is complete
-            OpHps.PaymentCompleteReturnUrl('/payment-complete');
 
             // attached elements
             OpHps.ApplePay.AttachApplePayButton('.apple-pay-button');
@@ -45,18 +54,15 @@
             // attach update enpoints
             OpHps.ApplePay.AttachPaymentMethodSelectedEndpoint('/apple-pay/payment-method/' + cartId);
 
+            // set the return url when a payment is complete
+            OpHps.PaymentCompleteReturnUrl('/payment-complete');
+
             // set excepted credit card networks
             OpHps.ApplePay.Visa(true);
+            OpHps.ApplePay.MasterCard(true);
 
             // set line items
             OpHps.ApplePay.SetTotal("Total", 10.00);
-
-            // set required information
-            OpHps.ApplePay.RequireShippingContactAddress(false);
-            OpHps.ApplePay.RequiredShippingContactFields(false);
-            OpHps.ApplePay.RequireShippingContactEmail(false);
-            OpHps.ApplePay.RequireShippingContactName(false);
-            OpHps.ApplePay.RequireShippingContactPhone(false);
 
             // show the apple pay button if supported
             OpHps.ApplePay.ShowApplePayButton();

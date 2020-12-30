@@ -12,14 +12,18 @@ var OpHps = {
     EnableLogging: function (enabled) {
         this.loggingEnabled = enabled;
     },
+    AttachLog: function (idOrClass) {
+        this.logElement = idOrClass;
+        OpHps.Log("Logs attached to " + idOrClass + " element.");
+    },
     // default attributes
     // --------------------------------------------------------------------------------
     apiLoginId: "UNKNOWN",
     paymentCompleteReturnUrl: "/payment-complete",
     loggingEnabled: false,
+    logElement: ".logging",
     //server: "https://op-hps-apple-pay-server.ngrok.io/v3/apple-pay",
     server: "https://api.openpath.io/platform/v3/apple-pay",
-
 
     // APPLE PAY FUNCTIONS
     // ================================================================================
@@ -31,14 +35,9 @@ var OpHps = {
             this.applePayButtonElement = idOrClass;
             OpHps.Log("Apple Pay button attached to " + idOrClass + " element.");
         },
-        AttachLog: function (idOrClass) {
-            this.applePayLogElement = idOrClass;
-            OpHps.Log("Logs attached to " + idOrClass + " element.");
-        },
         // default element attributes
         // --------------------------------------------------------------------------------
         applePayButtonElement: ".apple-pay-button",
-        applePayLogElement: ".apple-pay-log",
 
         // ATTACHED ENDPOINTS
         // ================================================================================
@@ -568,8 +567,8 @@ var OpHps = {
         if (OpHps.loggingEnabled) {
 
             console.log(message);
-            var html = $(OpHps.ApplePay.applePayLogElement).html() + message + "<br />";
-            $(OpHps.ApplePay.applePayLogElement).html(html);
+            var html = $(OpHps.logElement).html() + message + "<br />";
+            $(OpHps.logElement).html(html);
 
         }
 
