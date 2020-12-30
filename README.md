@@ -10,7 +10,7 @@ To be created!
 
 ### ApiLoginId
 
-This is your unique key that associates your Apple Pay account with OpenPath and Heartland System, which can be found under sites in the OpenPath backoffice. https://client.openpath.io. For testing purposes, we have provided 10 varified ngrok URLs and matching API Login IDs, which can be found below.
+This is your unique key that associates your Apple Pay account with OpenPath and Heartland System, which can be found under sites in the OpenPath back office. https://client.openpath.io. For testing purposes, we have provided 10 varified ngrok URLs and matching API Login IDs, which can be found below.
 
 OpHps.ApiLoginId(API Login ID)
 
@@ -57,6 +57,22 @@ OpHps.Log(Message)
 OpHps.Log('Hey something happened here!');
 ```
 
+### AttachLog
+
+If you want the browsers console output from the logger to also be updated on page, which can be useful when testing on mobile devices, you can attach the logger to an HTML element.
+
+OpHps.AttachLog(Element Class or ID)
+
+```javascript
+OpHps.AttachLog('#log-output');
+```
+
+#### Example HTML Element
+
+```html
+<div id="log-output"></div>
+```
+
 ### ApplePay.AttachApplePayButton
 
 In order to display the Apple Pay button your HTML must have a element that we can attach the button to, use this function to attach that elements Class or ID.
@@ -71,22 +87,6 @@ OpHps.ApplePay.AttachApplePayButton('.apple-pay-button');
 
 ```html
 <span class="apple-pay-button hidden"></span>
-```
-
-### ApplePay.AttachLog
-
-If you want the browsers console output from the logger to also be updated on page, which can be useful when testing on mobile devices, you can attach the logger to an HTML element.
-
-OpHps.ApplePay.AttachLog(Element Class or ID)
-
-```javascript
-OpHps.ApplePay.AttachLog('#log-output');
-```
-
-#### Example HTML Element
-
-```html
-<div id="log-output"></div>
 ```
 
 ### Attaching Endpoints
@@ -314,4 +314,18 @@ OpHps.ApplePay.RequiredShippingContactFields(true);
 
 ## Testing
 
-To be created!
+### Test Accounts
+
+| ID   | API Login ID     | Verified Domain                     | ngrok File Name                 |
+| ---- | ---------------- | ----------------------------------- | ------------------------------- |
+| 0    | gptv7pAxQsyr9UQj | https://op-hps-apple-pay-0.ngrok.io | op-hps-apple-pay-0.ngrok.io.bat |
+| 1    | pcjxXKJxZ4pdPASZ | https://op-hps-apple-pay-1.ngrok.io | op-hps-apple-pay-1.ngrok.io.bat |
+| 2    | yhvyNkNKkcdWVd9q | https://op-hps-apple-pay-2.ngrok.io | op-hps-apple-pay-2.ngrok.io.bat |
+| 3    | 9WPdxye3NRU4zrCv | https://op-hps-apple-pay-3.ngrok.io | op-hps-apple-pay-3.ngrok.io.bat |
+| 4    | 47DxjThMjcxtWUsu | https://op-hps-apple-pay-4.ngrok.io | op-hps-apple-pay-4.ngrok.io.bat |
+| 5    |                  |                                     |                                 |
+| 6    |                  |                                     |                                 |
+| 7    |                  |                                     |                                 |
+| 8    |                  |                                     |                                 |
+| 9    |                  |                                     |                                 |
+
