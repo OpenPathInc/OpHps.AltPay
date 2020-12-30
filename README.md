@@ -211,3 +211,4 @@ OpHps.ApplePay.AddLineItem('Tax', 1.43);
 ### ApplePay.RequiredShippingContactFields
 
 ## Testing
+To be created!
