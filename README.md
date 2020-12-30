@@ -14,7 +14,7 @@ This is your unique key that associates your Apple Pay account with OpenPath and
 
 OpHps.ApiLoginId(API Login ID)
 
-```
+```javascript
 OpHps.ApiLoginId('XXXXXXXXXXXX');
 ```
 
@@ -24,8 +24,8 @@ If the payment is successful this is the URL the server will redirect to with th
 
 OpHps.PaymentCompleteReturnUrl(Redirect URL)
 
-```
-OpHps.PaymentCompleteReturnUrl('/payment-complete);
+```javascript
+OpHps.PaymentCompleteReturnUrl('/payment-complete);ja
 ```
 
 #### Returns the following paramaters
@@ -33,7 +33,7 @@ OpHps.PaymentCompleteReturnUrl('/payment-complete);
 TransactionId
 PacketId
 
-```
+```http
 /payment-complete?TransactionId=4928399223&PacketId=4949223
 ```
 
@@ -43,7 +43,7 @@ Enable logging turns on the debugging output to the browsers console and to an H
 
 OpHps.EnableLogging(true|false)
 
-```
+```javascript
 OpHps.EnableLogging(true);
 ```
 
@@ -53,7 +53,7 @@ Will output messages to the logging service.
 
 OpHps.Log(Message)
 
-```
+```javascript
 OpHps.Log('Hey something happened here!');
 ```
 
@@ -63,13 +63,13 @@ In order to display the Apple Pay button your HTML must have a element that we c
 
 OpHps.ApplePay.AttachApplePayButton(Element Class or ID)
 
-```
+```javascript
 OpHps.ApplePay.AttachApplePayButton('.apple-pay-button');
 ```
 
 #### Example HTML Element
 
-```
+```html
 <span class="apple-pay-button hidden"></span>
 ```
 
@@ -79,13 +79,13 @@ If you want the browsers console output from the logger to also be updated on pa
 
 OpHps.ApplePay.AttachLog(Element Class or ID)
 
-```
+```javascript
 OpHps.ApplePay.AttachLog('#log-output');
 ```
 
 #### Example HTML Element
 
-```
+```html
 <div id="log-output"></div>
 ```
 
@@ -99,7 +99,7 @@ When a user changes their payment type this attached endpoint will be posted to.
 
 OpHps.ApplePay.AttachPaymentMethodSelectedEndpoint(Endpoint)
 
-```
+```javascript
 OpHps.ApplePay.AttachPaymentMethodSelectedEndpoint('/apple-pay/payment-method/' + cartId);
 ```
 
@@ -109,7 +109,7 @@ When a user changes their shipping method this attached endpoint will be posted 
 
 OpHps.ApplePay.AttachShippingMethodSelectedEndpoint(Endpoint)
 
-```
+```javascript
 OpHps.ApplePay.AttachShippingMethodSelectedEndpoint('/apple-pay/shipping-method/' + cartId);
 ```
 
@@ -119,7 +119,7 @@ When a user changes their contact information this attached endpoint will be pos
 
 OpHps.ApplePay.AttachShippingContactSelectedEndpoint(Endpoint)
 
-```
+```javascript
 OpHps.ApplePay.AttachShippingContactSelectedEndpoint('/apple-pay/shipping-contact/' + cartId);
 ```
 
@@ -129,7 +129,7 @@ Once you've completed the initial configuration of Apple Pay, the final is to ex
 
 OpHps.ApplePay.ShowApplePayButton()
 
-```
+```javascript
 OpHps.ApplePay.ShowApplePayButton();
 ```
 
@@ -139,7 +139,7 @@ To change the default currency of USD, you can set the country code, which in tu
 
 OpHps.ApplePay.SetCountryCode(Two letter country code)
 
-```
+```javascript
 OpHps.ApplePay.SetCountryCode('GB');
 ```
 
@@ -156,7 +156,7 @@ Tells Apple Pay to accept or not accept Visa cards.
 
 OpHps.ApplePay.Visa(true | false)
 
-```
+```javascript
 OpHps.ApplePay.Visa(true);
 ```
 
@@ -166,7 +166,7 @@ Tells Apple Pay to accept or not accept Master Card cards.
 
 OpHps.ApplePay.MasterCard(true | false)
 
-```
+```javascript
 OpHps.ApplePay.MasterCard(true);
 ```
 
@@ -176,7 +176,7 @@ Tells Apple Pay to accept or not accept American Express cards.
 
 OpHps.ApplePay.AmericanExpress(true | false)
 
-```
+```javascript
 OpHps.ApplePay.AmericanExpress(true);
 ```
 
@@ -186,7 +186,7 @@ Tells Apple Pay to accept or not accept Discover cards.
 
 OpHps.ApplePay.Discover(true | false)
 
-```
+```javascript
 OpHps.ApplePay.Discover(true);
 ```
 
@@ -196,7 +196,7 @@ Beyond the above supported card networks, you can also add custom card networks 
 
 OpHps.ApplePay.SupportNetwork(Card Network, Accept(true | false))
 
-```
+```javascript
 OpHps.ApplePay.SupportNetwork('JCB', true)
 ```
 
@@ -206,7 +206,7 @@ The set total is the final amount that you want Apple Pay to charge.
 
 OpHps.ApplePay.SetTotal(Total Amount)
 
-```
+```javascript
 OpHps.ApplePay.SetTotal(19.99);
 ```
 
