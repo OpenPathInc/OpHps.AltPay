@@ -167,10 +167,34 @@ OpHps.ApplePay.SupportNetwork('JCB', true)
 ```
 
 ### ApplePay.SetTotal
+The set total is the final amount that you want Apple Pay to charge.
+
+OpHps.ApplePay.SetTotal(Total Amount)
+
+```
+OpHps.ApplePay.SetTotal(19.99);
+```
+### Line Items
+The below option for line item applies NOT TO PRODUCT LINE ITEMS, but sub-total line items, for example if you wanted to display, tax, shipping and discounts, you would add each of these as a single line item with their amounts.
 
 ### ApplePay.ClearLineItems
+Clears all the current line items that are or would be displayed in the Apple Pay payment pane.
+
+OpHps.ApplePay.ClearLineItems()
+
+```
+OpHps.ApplePay.ClearLineItems();
+```
 
 ### ApplePay.AddLineItem
+Adds a line item to the Apple Pay payment pane.
+
+OpHps.ApplePay.AddLineItem(Label Descriptor, Amount)
+
+```
+OpHps.ApplePay.AddLineItem('Sub-total', 19.99);
+OpHps.ApplePay.AddLineItem('Tax', 1.43);
+```
 
 ### ApplePay.ClearShippingMethod
 
