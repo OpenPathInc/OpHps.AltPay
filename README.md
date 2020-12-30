@@ -25,12 +25,25 @@ PacketId
 ### EnableLogging
 Enable logging turns on the debugging output to the browsers console and to an HTML element if assigned.
 
-EnableLogging(true|false)
-`EnableLogging(true);`
+OpHps.EnableLogging(true|false)
+`OpHps.EnableLogging(true);`
 
 ### Log
+Will output messages to the logging service.
+
+OpHps.Log(Message)
+`OpHps.Log('Hey something happened here!');`
 
 ### ApplePay.AttachApplePayButton
+In order to display the Apple Pay button your HTML must have a element that we can attach the button to, use this function to attach that elements Class or ID.
+
+OpHps.ApplePay.AttachApplePayButton(Element Class or ID)
+`OpHps.ApplePay.AttachApplePayButton('.apple-pay-button');`
+
+#### Example HTML Element
+```
+<span class="apple-pay-button apple-pay-button-white hidden"></span>
+```
 
 ### ApplePay.AttachLog
 
