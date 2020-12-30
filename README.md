@@ -98,18 +98,73 @@ OpHps.ApplePay.AttachShippingContactSelectedEndpoint('/apple-pay/shipping-contac
 ```
 
 ### ApplePay.ShowApplePayButton
+Once you've completed the initial configuration of Apple Pay, the final is to execute the Show Apple Pay Button function.
+
+OpHps.ApplePay.ShowApplePayButton()
+
+```
+OpHps.ApplePay.ShowApplePayButton();
+```
 
 ### ApplePay.SetCountryCode
+To change the default currency of USD, you can set the country code, which in turn will change the currency.
+
+OpHps.ApplePay.SetCountryCode(Two letter country code)
+
+```
+OpHps.ApplePay.SetCountryCode('GB');
+```
+
+#### Examples
+| Country| Country Code | Currency Code |
+| ----------- | ----------- | -----------|
+| United States | US | USD  |
+| Great Britain  | GB | GBP |
 
 ### ApplePay.Visa
+Tells Apple Pay to accept or not accept Visa cards.
+
+OpHps.ApplePay.Visa(true | false)
+
+```
+OpHps.ApplePay.Visa(true);
+```
 
 ### ApplePay.MasterCard
+Tells Apple Pay to accept or not accept Master Card cards.
+
+OpHps.ApplePay.MasterCard(true | false)
+
+```
+OpHps.ApplePay.MasterCard(true);
+```
 
 ### ApplePay.AmericanExpress
+Tells Apple Pay to accept or not accept American Express cards.
+
+OpHps.ApplePay.AmericanExpress(true | false)
+
+```
+OpHps.ApplePay.AmericanExpress(true);
+```
 
 ### ApplePay.Discover
+Tells Apple Pay to accept or not accept Discover cards.
+
+OpHps.ApplePay.Discover(true | false)
+
+```
+OpHps.ApplePay.Discover(true);
+```
 
 ### ApplePay.SupportNetwork
+Beyond the above supported card networks, you can also add custom card networks as well.
+
+OpHps.ApplePay.SupportNetwork(Card Network, Accept(true | false))
+
+```
+OpHps.ApplePay.SupportNetwork('JCB', true)
+```
 
 ### ApplePay.SetTotal
 
