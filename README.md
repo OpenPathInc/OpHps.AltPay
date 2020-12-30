@@ -1,5 +1,9 @@
 # OpenPath Heartland Payment Systems Alternative Payment Methods
 Alternative Payment Methods (Apple Pay and Google Pay) for Heartland Payment Systems
+
+## Quick Start
+To be created!
+
 ## OpHps.AltPay.js
 ### ApiLoginId
 This is your unique key that associates your Apple Pay account with OpenPath and Heartland System, which can be found under sites in the OpenPath backoffice. https://client.openpath.io. For testing purposes, we have provided 10 varified ngrok URLs and matching API Login IDs, which can be found below.
