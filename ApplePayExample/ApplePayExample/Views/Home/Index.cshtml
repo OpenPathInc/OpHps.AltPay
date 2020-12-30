@@ -1,0 +1,99 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Apple Pay Button Example</h1>
+    <p>
+        <span class="apple-pay-button apple-pay-button-white hidden"></span>
+    </p>
+    <div class="apple-pay-logging"></div>
+</div>
+
+@section scripts {
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            configureApplePay();
+
+        });
+
+        function configureApplePay() {
+
+            // example of passing data, in this example we are calling it a cart id, you can use
+            // this id when making calls to your server side to update shipping, tax or any other
+            // information when a user changes their payment types or addresses.
+            var cartId = 1001;
+
+            // enable debug logging
+            OpHps.EnableLogging(true);
+
+            // attach the logging to an on page element
+            OpHps.ApplePay.AttachLog('.apple-pay-logging');
+
+            // add api key
+            OpHps.ApiLoginId('TZSdpU2VhaWcTZZ7');
+
+            // set the return url when a payment is complete
+            OpHps.PaymentCompleteReturnUrl('/payment-complete');
+
+            // attached elements
+            OpHps.ApplePay.AttachApplePayButton('.apple-pay-button');
+
+            // attach update enpoints
+            OpHps.ApplePay.AttachPaymentMethodSelectedEndpoint('/apple-pay/payment-method/' + cartId);
+
+            // set excepted credit card networks
+            OpHps.ApplePay.Visa(true);
+
+            // set line items
+            OpHps.ApplePay.SetTotal("Total", 10.00);
+
+            // set required information
+            OpHps.ApplePay.RequireShippingContactAddress(false);
+            OpHps.ApplePay.RequiredShippingContactFields(false);
+            OpHps.ApplePay.RequireShippingContactEmail(false);
+            OpHps.ApplePay.RequireShippingContactName(false);
+            OpHps.ApplePay.RequireShippingContactPhone(false);
+
+            // show the apple pay button if supported
+            OpHps.ApplePay.ShowApplePayButton();
+
+            // declare endpoints
+            @*var endpointValidate          = '/v1/apple-pay/validate-merchant/@Model.Integration.ShopDomain/@applePay?.ThreeDSecureApplePayMerchantCertificateThumbprint/@applePay?.ThreeDSecureApplePayMerchantId';
+            var endpointShippingContact     = '/v1/apple-pay/shipping-contact/@Model.RequestToken';
+            var endpointPaymentMethod       = '/v1/apple-pay/payment-method';
+            var endpointShippingMethod      = '/v1/apple-pay/shipping-method/@Model.RequestToken';
+            var endpointPaymentAuthorized   = '/v1/apple-pay/payment-authorized/@Model.RequestToken';
+
+            // attach endpoints
+            OpenPath.ApplePay.AttachValidateMerchantEndpoint(endpointValidate);
+            OpenPath.ApplePay.AttachShippingContactSelectedEndpoint(null);
+            OpenPath.ApplePay.AttachPaymentMethodSelectedEndpoint(endpointPaymentMethod);
+            OpenPath.ApplePay.AttachShippingMethodSelectedEndpoint(null);
+            OpenPath.ApplePay.AttachPaymentAuthorizedEndpoint(endpointPaymentAuthorized);
+
+            // set excepted credit card networks
+            OpenPath.ApplePay.AmericanExpress(true);
+            OpenPath.ApplePay.Discover(true);
+            OpenPath.ApplePay.MasterCard(true);
+            OpenPath.ApplePay.Visa(true);
+
+            // set line items
+            OpenPath.ApplePay.SetCountryCode("US");
+            OpenPath.ApplePay.ClearLineItems();
+            OpenPath.ApplePay.AddLineItem("Subtotal", @Model.Checkout.SubtotalPrice);
+            OpenPath.ApplePay.AddLineItem("Discount", @Model.Checkout.TotalDiscounts);
+            OpenPath.ApplePay.AddLineItem("Shipping", @(Model.Checkout.ShippingLines?.FirstOrDefault() == null ? "0.00" : Model.Checkout.ShippingLines.FirstOrDefault().Price.ToString()));
+            OpenPath.ApplePay.AddLineItem("Taxes",    @Model.Checkout.TotalTax?.ToString());
+            OpenPath.ApplePay.SetTotal("Total", @Model.Checkout.TotalPrice);*@
+
+            console.log('Completed setting up Apple Pay!');
+
+        }
+
+    </script>
+
+}
