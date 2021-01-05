@@ -2,9 +2,73 @@
 
 Alternative Payment Methods (Apple Pay and Google Pay) for Heartland Payment Systems
 
-## Quick Start
+## Sample Project
 
-To be created!
+### What you will need?
+
+- A Development Environment: Visual Studio or Visual Studio Code
+  - [Download Visual Studio 2019 for Windows & Mac (microsoft.com)](https://visualstudio.microsoft.com/downloads/)
+- A Proxy Service: ngrok
+  - Licensed Version Required for custom subdomains
+  - [Download ngrok](https://ngrok.com/download)
+- Apple Pay Compatible Device with Safari
+  - [Apple Pay is compatible with these devices](https://support.apple.com/en-us/HT208531)
+  - iPhone
+  - iPad
+  - Apple Watch
+  - Mac
+
+### Already Included, But  Available Separately
+
+-  Apple Pay Data Objects
+  - [NuGet Gallery | OpenPath.DTO.ApplePay 3.1.4](https://www.nuget.org/packages/OpenPath.DTO.ApplePay/)
+  - [A collection of Data Transformation Objects specifically for use with C# and Apple Pay. (github.com)](https://github.com/OpenPathInc/OpenPath.DTO.ApplePay)
+
+### Getting Started
+
+#### Setting up the project
+
+Open the `CSharpExample.sln` solution found in the `\ApplePayExample` Folder in your code editor. Once your project is open, open the `launchSettings.json` located in the `\ApplePayExample\CSharpExample\Properties` and ensure the project is using `iisExpress` `applicationUrl`:`http://localhost:44300`. This is important if you are going to use one of our predefined and Apple Pay verified test domains through ngrok. If you want to use a different port, you can always adjust that in your ngrok settings to match your project.
+
+##### Launch Settings
+
+```json
+"iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+        "applicationUrl": "http://localhost:44300",
+        "sslPort": 0
+    }
+}
+```
+
+Once the above configuration has been completed, you can now start the project, which will launch a web browser taking you to the Apple Pay Example home page. Most likely, either the device you are using or the browser will not be compatible with Apple Pay and you will not see the Apple Pay button, **This is OK**!
+
+
+
+#### Setting up the proxy
+
+In order to test Apple Pay, you will need a URL that have been validated by Apple Pay. In this example project, we have created 10 verified test domains you can setup using the ngrok proxy. We have already created the 10 batch files for each of these test domains; however, only 1 can be used at a time by any given tester; hence why we created 10 accounts.
+
+In order to use the custom domains you will need a licensed copy of ngrok and add your ngrok key to the batch file. To fire up the proxy service, go to the `/ngrok` folder a select one of the 10 test accounts. Edit the selected batch file and add your ngrok key.
+
+```batch
+ngrok http 44300 -host-header="localhost:44300" -subdomain=op-hps-apple-pay-0 -authtoken {YOUR-NGROK-API-KEY}
+pause
+```
+
+Save your changes and execute the batch file.
+
+Once the proxy is running, you can now go to any Apple Pay compatible device and open up a Safari browser and browse to one domain you selected in your batch files.
+
+https://op-hps-apple-pay-#.ngrok.io
+
+If Apple Pay is supported by the browser and device an Apple Pay button will appear, which you can click and complete checkout.
+
+> Note that any transaction you do, does not actually charge the card you have associated with your Apple Pay account.
+
+
 
 ## OpHps.AltPay.js
 
@@ -95,7 +159,7 @@ Once the Apple Pay button has been displayed and a user clicks on that button, t
 
 ### ApplePay.AttachPaymentMethodSelectedEndpoint
 
-When a user changes their payment type this attached endpoint will be posted to.
+When a user changes their payment type, such as Visa, Master Card, etc. this attached endpoint will be posted to.
 
 OpHps.ApplePay.AttachPaymentMethodSelectedEndpoint(Endpoint)
 
@@ -115,7 +179,7 @@ OpHps.ApplePay.AttachShippingMethodSelectedEndpoint('/apple-pay/shipping-method/
 
 ### ApplePay.AttachShippingContactSelectedEndpoint
 
-When a user changes their contact information this attached endpoint will be posted to.
+When a user changes their shipping address this attached endpoint will be posted to.
 
 OpHps.ApplePay.AttachShippingContactSelectedEndpoint(Endpoint)
 

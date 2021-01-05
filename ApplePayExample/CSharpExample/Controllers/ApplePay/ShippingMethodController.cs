@@ -20,40 +20,32 @@ namespace ApplePayExample.Controllers.ApplePay {
 
     [EnableCors("HPS")]
     [Route("apple-pay/[controller]")]
-    public class ShippingContactController : Controller {
+    public class ShippingMethodController : Controller {
 
-        public ShippingContactController() {
+        public ShippingMethodController() {
 
         }
 
-
+        /// <summary>
+        /// This endpoing is called when a purchaser changes their shipping method that you may
+        /// have previously set.
+        /// </summary>
+        /// <param name="cartId">If you want to pass information to your endpoint, you can add the
+        /// paramaters to the endpoint url.</param>
+        /// <param name="dto">This is the data object received from Apple Pay.</param>
+        /// <returns>An Apple Pay Update data object JSON formatted.</returns>
         [HttpPost]
         [Produces("application/json")]
-        [Route("/apple-pay/shipping-contact/{cartId}", Name = "OnShippingContactSelected")]
+        [Route("/apple-pay/shipping-method/{cartId}", Name = "OnShippingMethodSelected")]
         public async Task<IActionResult> PostAsync(
             string cartId,
-            [FromBody] ShippingContactUpdateDto model
+            [FromBody] ShippingMethodUpdateDto model
         ) {
 
-            // validate
             if (!ModelState.IsValid) return BadRequest();
-
-            // initialize shipping methods
-            if(model.ShippingContactUpdate.NewShippingMethods == null) model.ShippingContactUpdate.NewShippingMethods = new List<ShippingMethodDto>();
-            if(model.ShippingContactUpdate.Errors             == null) model.ShippingContactUpdate.Errors             = new List<ErrorDto>();
-
-            // update the shipping methods
-            model.ShippingContactUpdate.NewShippingMethods.Add(
-                new ShippingMethodDto() {
-                    Amount      = "10.00",
-                    Detail      = $"Arives {DateTime.Now.AddDays(1).ToLongDateString()}",
-                    Identifier  = "NDS-10",
-                    Label       = "Next Day Shipping"
-                }
-            );
-
+                
             // update the line items
-            model.ShippingContactUpdate.NewLineItems = new List<LineItemDto> {
+            model.ShippingMethodUpdate.NewLineItems =  new List<LineItemDto> {
                 new LineItemDto {
                     Label = "Subtotal",
                     Type = LineItemType.final,
@@ -77,14 +69,14 @@ namespace ApplePayExample.Controllers.ApplePay {
             };
 
             // update the total
-            model.ShippingContactUpdate.NewTotal = new LineItemDto() {
-                Label   = "Total",
-                Type    = LineItemType.final,
-                Amount  = "35.00"
+            model.ShippingMethodUpdate.NewTotal = new LineItemDto() {
+                Label = "Total",
+                Type = LineItemType.final,
+                Amount = "35.00"
             };
 
             // Return the merchant session as-is to the JavaScript as JSON.
-            return Json(new { success = true, update = model.ShippingContactUpdate });
+            return Json(new { success = true, update = model.ShippingMethodUpdate });
 
         }
 

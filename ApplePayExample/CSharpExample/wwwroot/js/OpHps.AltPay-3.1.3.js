@@ -514,11 +514,11 @@ var OpHps = {
             amount: 0.00
         },
         paymentLineItems: [
-            {
-                label: "Subtotal",
-                amount: 0.00,
-                type: "final"
-            }
+            //{
+            //    label: "Subtotal",
+            //    amount: 0.00,
+            //    type: "final"
+            //}
         ],
 
         // SHIPPING METHODS

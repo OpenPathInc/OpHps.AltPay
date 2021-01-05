@@ -1,1 +1,1 @@
-ngrok http 44300 -host-header="localhost:44300" -subdomain=op-hps-apple-pay-2 -authtoken {YOUR_NGROK_API_KEY}
+ngrok http 44300 -host-header="localhost:44300" -subdomain=op-hps-apple-pay-2 -authtoken {YOUR-NGROK-API-KEY}

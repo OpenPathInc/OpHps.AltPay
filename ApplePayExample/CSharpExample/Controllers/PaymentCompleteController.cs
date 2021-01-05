@@ -9,7 +9,7 @@ namespace ApplePayExample.Controllers {
     public class PaymentCompleteController : Controller {
 
         [Route("/payment-complete")]
-        public IActionResult Index() {
+        public IActionResult Index(string TransactionId, string PacketId) {
 
             return View();
 

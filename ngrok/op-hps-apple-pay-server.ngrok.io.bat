@@ -1,1 +1,1 @@
-ngrok http 48020 -host-header="localhost:48020" -subdomain=op-hps-apple-pay-server -authtoken TmAw2H42TT1WiXoXJA6N_81VaBHBmh3W25CwHkZw7j
+ngrok http 48020 -host-header="localhost:48020" -subdomain=op-hps-apple-pay-server -authtoken {YOUR-NGROK-API-KEY}

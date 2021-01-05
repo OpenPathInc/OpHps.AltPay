@@ -1,0 +1,122 @@
+﻿@{
+    ViewData["Title"] = "Apple Pay Example";
+}
+
+<div class="text-center">
+
+    <h1 class="display-4">Apple Pay Example</h1>
+    <p>
+        <!-- this will be the html element we will attach the apple pay button too -->
+        <span class="apple-pay-button apple-pay-button-white hidden"></span>
+    </p>
+
+    <!-- this will be the html element we will attach the debug output too -->
+    <div id="log-output"></div>
+
+</div>
+
+@section scripts {
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            configureApplePay();
+
+        });
+
+        function configureApplePay() {
+
+            // ASSOCIATING DATA TO AN ENDPOINT
+            // Example of passing data, in this example we are calling it a cart id, you can use
+            // this id when making calls to your server side to update shipping, tax or any other
+            // information when a user changes their payment types or addresses.
+            var cartId = 1001;
+
+            // ENABLE ALT PAYMENT LOGGING
+            // Enable logging turns on the debugging output to the browsers console and to an HTML
+            // element if assigned.
+            OpHps.EnableLogging(true);
+
+            // SET LOGGING TO OUTPUT TO HTML ELEMENT
+            // If you want the browsers console output from the logger to also be updated on page,
+            // which can be useful when testing on mobile devices, you can attach the logger to an
+            // HTML element.
+            OpHps.AttachLog('#log-output');
+
+            // SET YOUR API KEY FOR YOUR ACCOUNT
+            // This is your unique key that associates your Apple Pay account with OpenPath and
+            // Heartland System, which can be found under sites in the OpenPath back office.
+            // https://client.openpath.io. For testing purposes, we have provided 10 varified
+            // ngrok URLs and matching API Login IDs, which can be found below.
+            OpHps.ApiLoginId('gptv7pAxQsyr9UQj');  // https://op-hps-apple-pay-0.ngrok.io
+            //OpHps.ApiLoginId('pcjxXKJxZ4pdPASZ');  // https://op-hps-apple-pay-1.ngrok.io
+            //OpHps.ApiLoginId('yhvyNkNKkcdWVd9q');  // https://op-hps-apple-pay-2.ngrok.io
+            //OpHps.ApiLoginId('9WPdxye3NRU4zrCv');  // https://op-hps-apple-pay-3.ngrok.io
+            //OpHps.ApiLoginId('47DxjThMjcxtWUsu');  // https://op-hps-apple-pay-4.ngrok.io
+            //OpHps.ApiLoginId('pt5QEytmhd4A3aTm');  // https://op-hps-apple-pay-5.ngrok.io
+            //OpHps.ApiLoginId('YfHn7S6CJ6tsv9aJ');  // https://op-hps-apple-pay-6.ngrok.io
+            //OpHps.ApiLoginId('ncEaaKrmPeRzRTET');  // https://op-hps-apple-pay-7.ngrok.io
+            //OpHps.ApiLoginId('wcGPXWkT5SzjM63M');  // https://op-hps-apple-pay-8.ngrok.io
+            //OpHps.ApiLoginId('c2sTDMCYyQYrtq7q');  // https://op-hps-apple-pay-9.ngrok.io
+
+            // ATTACHING THE APPLE PAY BUTTON TO AN ELEMENT
+            // In order to display the Apple Pay button your HTML must have a element that we can
+            // attach the button to, use this function to attach that elements Class or ID.
+            OpHps.ApplePay.AttachApplePayButton('.apple-pay-button');
+
+            // ATTACHING END POINTS
+            // Once the Apple Pay button has been displayed and a user clicks on that button, the
+            // Apple Pay payment pane will be displayed to the user.In this pane, the user has the
+            // ability to change their shipping address, payment types and contact information, as
+            // well as choice a shipping method.When these items are changed, the corresponding
+            // endpoints will be called below.These endpoints will send the data that was changed
+            // and give you the ability to modify the pricing and shipping options available in the
+            // pane based on these changes.These endpoints must be available on your server and you
+            // must provide the updates.
+
+            // ATTACHING AN ENPOINT WHEN PAYMENT METHOD CHANGED
+            // When a user changes their payment type this attached endpoint will be posted to.
+            OpHps.ApplePay.AttachPaymentMethodSelectedEndpoint('/apple-pay/payment-method/' + cartId);
+
+            // ATTACHING AN ENDPOINT WHEN SHIPPING CONTACT CHANGED
+            // When a user changes their shipping address this attached endpoint will be posted to.
+            OpHps.ApplePay.AttachShippingContactSelectedEndpoint('/apple-pay/shipping-contact/' + cartId);
+
+            // ATTACHING AN ENDPOINT WHEN THE SHIPPING METHOD CHANGED
+            // When a user changes their shipping method this attached endpoint will be posted to.
+            OpHps.ApplePay.AttachShippingMethodSelectedEndpoint('/apple-pay/shipping-method/' + cartId);
+
+            // SET WHERE TO GO IF THE ORDER IS COMPLETE
+            // If the payment is successful this is the URL the server will redirect to with the
+            // details of the transaction in the query string.
+            OpHps.PaymentCompleteReturnUrl('/payment-complete/' + cartId);
+
+            // SET ACCEPTED PAYMENT METHODS
+            // Tells Apple Pay to accept or not accept Visa cards.
+            OpHps.ApplePay.Visa(true);
+            // Tells Apple Pay to accept or not accept Master Card cards.
+            OpHps.ApplePay.MasterCard(true);
+
+            // SET THE PAYMENT LINE ITEMS
+            // The below option for line item applies NOT TO PRODUCT LINE ITEMS, but sub-total line
+            // items, for example if you wanted to display, tax, shipping and discounts, you would
+            // add each of these as a single line item with their amounts.
+            OpHps.ApplePay.ClearLineItems();
+            OpHps.ApplePay.AddLineItem("Subtotal", 9.99);
+            OpHps.ApplePay.AddLineItem("5% Discount", -0.25);
+            OpHps.ApplePay.AddLineItem("Shipping", 2.00);
+            OpHps.ApplePay.AddLineItem("Taxes", 0.88);
+            OpHps.ApplePay.AddLineItem("Doesn't Add Up", 1000000);
+            OpHps.ApplePay.SetTotal("Total", 12.62);
+
+            // INITALIZE AND SHOW THE APPLE PAY BUTTON IF SUPPORTED
+            // Once you've completed the initial configuration of Apple Pay, the final is to
+            // execute the Show Apple Pay Button function.
+            OpHps.ApplePay.ShowApplePayButton();
+
+        }
+
+    </script>
+
+}

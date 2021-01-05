@@ -1,0 +1,10 @@
+authtoken: TmAw2H42TT1WiXoXJA6N_81VaBHBmh3W25CwHkZw7j
+tunnels:
+  apple-client:
+    proto: http
+    addr: 44300
+    subdomain: op-hps-apple-pay-0
+  apple-server:
+    proto: http
+    addr: 48020
+    subdomain: op-hps-apple-pay-server
