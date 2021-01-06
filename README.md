@@ -24,6 +24,10 @@ Alternative Payment Methods (Apple Pay and Google Pay) for Heartland Payment Sys
   - [NuGet Gallery | OpenPath.DTO.ApplePay 3.1.4](https://www.nuget.org/packages/OpenPath.DTO.ApplePay/)
   - [A collection of Data Transformation Objects specifically for use with C# and Apple Pay. (github.com)](https://github.com/OpenPathInc/OpenPath.DTO.ApplePay)
 
+### Useful Documentation
+
+- [Apple Pay on the Web | Apple Developer Documentation](https://developer.apple.com/documentation/apple_pay_on_the_web)
+
 ### Getting Started
 
 #### Setting up the project
@@ -67,6 +71,55 @@ https://op-hps-apple-pay-#.ngrok.io
 If Apple Pay is supported by the browser and device an Apple Pay button will appear, which you can click and complete checkout.
 
 > Note that any transaction you do, does not actually charge the card you have associated with your Apple Pay account.
+
+
+
+## How it Works
+
+### Payment Method Update
+
+
+
+#### Received Payload
+
+```json
+{
+  "paymentMethod": {
+    "displayName": null,
+    "network": null,
+    "type": "debit",
+    "paymentPass": null
+  },
+  "update": {
+    "newTotal": {
+      "type": "final",
+      "label": "Total",
+      "amount": "12.62"
+    },
+    "newLineItems": [
+      {
+        "type": "final",
+        "label": "Subtotal",
+        "amount": "9.99"
+      },
+      {
+        "type": "final",
+        "label": "Shipping",
+        "amount": "2"
+      },
+      {
+        "type": "final",
+        "label": "Taxes",
+        "amount": "0.88"
+      }
+    ]
+  }
+}
+```
+
+
+
+
 
 
 
