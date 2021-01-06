@@ -45,14 +45,41 @@ namespace ApplePayExample.Controllers.ApplePay {
             // validate model
             if (!ModelState.IsValid) return BadRequest();
 
-            // make sure we don't pass back any nulls
-            foreach(var lineItem in dto.PaymentMethodUpdate.NewLineItems) {
+            // get some of the credit card information supplied
+            var currentPaymentData = dto.PaymentMethod;
+            var creditCardBrand = currentPaymentData.Network; // this could be null !!!
+            var creditCardType = currentPaymentData.Type;
+            var currentTotal = decimal.Parse(dto.PaymentMethodUpdate.NewTotal.Amount);
 
-                if(lineItem.Amount == null) lineItem.Amount = "0.00";
+            // if we wanted to give a discount for debit cards we could
+            if(creditCardType == PaymentMethodType.debit) {
+
+                // add the discount line items
+                dto.PaymentMethodUpdate.NewLineItems.Add(
+                    new LineItemDto {
+                        Label = "Debit Card Discount",
+                        Amount = "-0.50",
+                        Type = LineItemType.final
+                    }
+                );
+
+                // update the total
+                dto.PaymentMethodUpdate.NewTotal.Amount = (currentTotal - 0.50m).ToString();
+
+            }
+            else {
+
+                // just in case they remove their debit card
+                var wasDiscountApplied = dto.PaymentMethodUpdate.NewLineItems.Where(_ => _.Label == "Debit Card Discount").Any();
+                dto.PaymentMethodUpdate.NewLineItems.RemoveAll(_ => _.Label == "Debit Card Discount");
+
+                if(wasDiscountApplied) {
+                    dto.PaymentMethodUpdate.NewTotal.Amount = (currentTotal + 0.50m).ToString();
+                }
 
             }
 
-            // Return the merchant session as-is to the JavaScript as JSON.
+            // return updated data
             return Json(new { success = true, update = dto.PaymentMethodUpdate });
 
         }        
